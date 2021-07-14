@@ -17,6 +17,13 @@ def import_pyfile(filepath):
     return module
 
 
+### Get current module + dictionary ###
+
+import sys
+main = sys.modules["__main__"]
+main.__dict__.__getattribute__
+
+
 ### CLASS INSPECTION ###
 import inspect
 def findattr(obj, methods=True):
@@ -28,6 +35,24 @@ def findattr(obj, methods=True):
                 or not (methods or inspect.isroutine(getattr(obj, k))): # attributes
             res.append(k)
     return res
+
+
+### OVERRIDE READ-ONLY BUILTINS ###
+
+from forbiddenfruit import curse, reverse
+
+def hello(self):
+    return "Hello world!"
+
+try:
+    str.hello = hello
+except TypeError as e:
+    print(e) # can't set attributes of built-in/extension type 'str'
+else:
+    print("".hello()) # this is not called!
+
+curse(str, "hello", hello)
+print("".hello()) # Hello world!
 
 
 
