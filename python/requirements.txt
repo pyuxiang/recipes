@@ -1,0 +1,6 @@
+numpy
+matplotlib
+scipy
+pyserial
+pybind11
+forbiddenfruit
