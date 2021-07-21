@@ -113,6 +113,10 @@ class NumberCollector(Collector):
         if self._count < 2:
             return 0
         return (self._meansq / (self._count - 1))**0.5
+    
+    def to_ufloat(self):
+        import uncertainties
+        return uncertainties.ufloat(self.mean, self.stddev)
 
     def __iter__(self):
         # Can remove via metaclass as well
